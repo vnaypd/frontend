@@ -10,7 +10,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import "./Filter.css"; // Import your CSS file
+import "./Filter.css";
 
 function App() {
   const [states, setStates] = useState([]);
@@ -37,9 +37,8 @@ function App() {
   }, []);
 
   useEffect(() => {
-
     fetchData(selectedState, currentPage);
-
+    // eslint-disable-next-line
   }, [selectedState, currentPage, sortColumn, sortOrder]);
 
   const fetchData = (state, page) => {
