@@ -1,0 +1,102 @@
+.container {
+    width: 100%;
+    max-width: 1500px; /* Increase max-width as needed */
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .filter-section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .filter-section label,
+  .filter-section select,
+  .filter-section input,
+  .filter-section button,
+  .filter-section span {
+    margin-bottom: 10px;
+  }
+  
+  .chart-section {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  
+  .chart {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 10px;
+  }
+  
+  .data-section {
+    width: 100%;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  th,
+  td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  @media only screen and (min-width: 768px) {
+    .filter-section label,
+    .filter-section select,
+    .filter-section input,
+    .filter-section button,
+    .filter-section span {
+      margin-bottom: 0;
+    }
+  
+    .chart {
+      width: 50%;
+    }
+  }
+  
+  @media only screen and (min-width: 1024px) {
+    .chart {
+      width: 50%;
+    }
+  }
+
+  .loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px); /* Apply blur effect */
+  }
+  
+  .spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
