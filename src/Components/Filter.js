@@ -26,7 +26,6 @@ function App() {
   const [sortOrder, setSortOrder] = useState("asc");
 
   useEffect(() => {
-    // Fetch states from the backend API
     axios
       .get("http://localhost:3001/api/products")
       .then((response) => {
@@ -38,9 +37,9 @@ function App() {
   }, []);
 
   useEffect(() => {
-    // Fetch data based on selected state and current page
+
     fetchData(selectedState, currentPage);
-    // eslint-disable-next-line
+
   }, [selectedState, currentPage, sortColumn, sortOrder]);
 
   const fetchData = (state, page) => {
