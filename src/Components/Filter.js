@@ -8,7 +8,7 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  ResponsiveContainer
+  ResponsiveContainer,
 } from "recharts";
 import "./Filter.css"; // Import your CSS file
 
@@ -40,12 +40,15 @@ function App() {
   useEffect(() => {
     // Fetch data based on selected state and current page
     fetchData(selectedState, currentPage);
+    // eslint-disable-next-line
   }, [selectedState, currentPage, sortColumn, sortOrder]);
 
   const fetchData = (state, page) => {
     setLoading(true);
     axios
-      .get(`http://localhost:3001/api/products?state=${state}&page=${page}&sortColumn=${sortColumn}&sortOrder=${sortOrder}`)
+      .get(
+        `http://localhost:3001/api/products?state=${state}&page=${page}&sortColumn=${sortColumn}&sortOrder=${sortOrder}`
+      )
       .then((response) => {
         setTableData(response.data.products);
         setTotalPages(response.data.metadata.totalPages);
@@ -71,6 +74,8 @@ function App() {
     const pageNumber = parseInt(pageInput);
     if (!isNaN(pageNumber) && pageNumber > 0 && pageNumber <= totalPages) {
       setCurrentPage(pageNumber);
+    } else {
+      alert("Please enter a valid page number.");
     }
   };
 
@@ -128,7 +133,11 @@ function App() {
       <h1>State-wise Data</h1>
       <div className="filter-section">
         <label htmlFor="stateSelect">Select a State:</label>
-        <select id="stateSelect" value={selectedState} onChange={handleStateChange}>
+        <select
+          id="stateSelect"
+          value={selectedState}
+          onChange={handleStateChange}
+        >
           <option value="All">All</option>
           {states.map((state) => (
             <option key={state} value={state}>
@@ -165,43 +174,66 @@ function App() {
               </div>
             </div>
             <table>
-  <thead>
-    <tr>
-      <th onClick={() => handleHeaderClick("State")}>State</th>
-      <th onClick={() => handleHeaderClick("District")}>District</th>
-      <th onClick={() => handleHeaderClick("Crop")}>Crop</th>
-      <th onClick={() => handleHeaderClick("Year")}>Year</th>
-      <th onClick={() => handleHeaderClick("Season")}>Season</th>
-      <th onClick={() => handleHeaderClick("Area")}>Area</th>
-      <th onClick={() => handleHeaderClick("Production")}>Production</th>
-      <th onClick={() => handleHeaderClick("Yield")}>Yield</th>
-    </tr>
-    <tr>
-      <th>{sortColumn === "State" && `Sorted by State (${sortOrder})`}</th>
-      <th>{sortColumn === "District" && `Sorted by District (${sortOrder})`}</th>
-      <th>{sortColumn === "Crop" && `Sorted by Crop (${sortOrder})`}</th>
-      <th>{sortColumn === "Year" && `Sorted by Year (${sortOrder})`}</th>
-      <th>{sortColumn === "Season" && `Sorted by Season (${sortOrder})`}</th>
-      <th>{sortColumn === "Area" && `Sorted by Area (${sortOrder})`}</th>
-      <th>{sortColumn === "Production" && `Sorted by Production (${sortOrder})`}</th>
-      <th>{sortColumn === "Yield" && `Sorted by Yield (${sortOrder})`}</th>
-    </tr>
-  </thead>
-  <tbody>
-    {tableData.map((item, index) => (
-      <tr key={index}>
-        <td>{item.State}</td>
-        <td>{item.District}</td>
-        <td>{item.Crop}</td>
-        <td>{item.Year}</td>
-        <td>{item.Season}</td>
-        <td>{item.Area}</td>
-        <td>{item.Production}</td>
-        <td>{item.Yield}</td>
-      </tr>
-    ))}
-  </tbody>
-</table>
+              <thead>
+                <tr>
+                  <th onClick={() => handleHeaderClick("State")}>State</th>
+                  <th onClick={() => handleHeaderClick("District")}>
+                    District
+                  </th>
+                  <th onClick={() => handleHeaderClick("Crop")}>Crop</th>
+                  <th onClick={() => handleHeaderClick("Year")}>Year</th>
+                  <th onClick={() => handleHeaderClick("Season")}>Season</th>
+                  <th onClick={() => handleHeaderClick("Area")}>Area</th>
+                  <th onClick={() => handleHeaderClick("Production")}>
+                    Production
+                  </th>
+                  <th onClick={() => handleHeaderClick("Yield")}>Yield</th>
+                </tr>
+                <tr>
+                  <th>
+                    {sortColumn === "State" && `Sorted by State (${sortOrder})`}
+                  </th>
+                  <th>
+                    {sortColumn === "District" &&
+                      `Sorted by District (${sortOrder})`}
+                  </th>
+                  <th>
+                    {sortColumn === "Crop" && `Sorted by Crop (${sortOrder})`}
+                  </th>
+                  <th>
+                    {sortColumn === "Year" && `Sorted by Year (${sortOrder})`}
+                  </th>
+                  <th>
+                    {sortColumn === "Season" &&
+                      `Sorted by Season (${sortOrder})`}
+                  </th>
+                  <th>
+                    {sortColumn === "Area" && `Sorted by Area (${sortOrder})`}
+                  </th>
+                  <th>
+                    {sortColumn === "Production" &&
+                      `Sorted by Production (${sortOrder})`}
+                  </th>
+                  <th>
+                    {sortColumn === "Yield" && `Sorted by Yield (${sortOrder})`}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {tableData.map((item, index) => (
+                  <tr key={index}>
+                    <td>{item.State}</td>
+                    <td>{item.District}</td>
+                    <td>{item.Crop}</td>
+                    <td>{item.Year}</td>
+                    <td>{item.Season}</td>
+                    <td>{item.Area}</td>
+                    <td>{item.Production}</td>
+                    <td>{item.Yield}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </>
         )}
       </div>
