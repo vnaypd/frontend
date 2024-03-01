@@ -50,7 +50,7 @@ function App() {
       .get("http://localhost:3001/api/products")
       .then((response) => {
         const { allStates, allYears, stateCrops } = response.data;
-        setStates(["All", ...allStates]); // Ensure "All" is added
+        setStates(["All", ...allStates]); 
         setYears(["All", ...allYears]);
         setCrops(["All", ...stateCrops]);
       })
