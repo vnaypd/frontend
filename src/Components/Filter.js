@@ -41,11 +41,11 @@ function App() {
     pageSize,
     sortColumn,
     sortOrder,
-    selectedCrop, // Include selectedCrop in dependencies
+    selectedCrop, 
   ]);
 
   useEffect(() => {
-    // Fetch states, years, and crops
+  
     axios
       .get("http://localhost:3001/api/products")
       .then((response) => {
@@ -106,7 +106,7 @@ function App() {
   const handleReset = () => {
     setSelectedState("All");
     setSelectedYear("All");
-    setSelectedCrop("All"); // Add reset for selectedCrop
+    setSelectedCrop("All"); 
     setCurrentPage(1);
     setPageSize(50);
     setSortColumn(null);
@@ -217,7 +217,7 @@ function App() {
           <div className="loading-overlay">
             <div className="spinner"></div>
           </div>
-        ) : (
+        ) : selectedState !== "All" ? (
           <>
             <h2>Data for {selectedState}</h2>
             <div className="chart-section">
@@ -316,7 +316,7 @@ function App() {
               </tbody>
             </table>
           </>
-        )}
+        ) : null}
       </div>
     </div>
   );
