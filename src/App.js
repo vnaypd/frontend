@@ -1,13 +1,13 @@
 import React from "react";
 import "./App.css"; 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Filter  from "./Components/Filter";
+import Main  from "./Components/Main";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Filter />} />
+        <Route path="/" element={<Main />} />
       </Routes>
     </BrowserRouter>
   );
