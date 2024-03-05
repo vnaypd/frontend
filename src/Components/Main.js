@@ -5,7 +5,7 @@ import ChartSection from "./ChartSection";
 import TableSection from "./TableSection";
 import Pagination from "./Pagination";
 import LoadingOverlay from "./LoadingOverlay";
-import "./Main.css";
+import "../App.css";
 
 function Main() {
   const [states, setStates] = useState([]);
