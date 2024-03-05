@@ -8,22 +8,22 @@ import LoadingOverlay from "./LoadingOverlay";
 import "../App.css";
 
 function Main() {
+  const [loading, setLoading] = useState(true);
   const [states, setStates] = useState([]);
+  const [years, setYears] = useState(["All"]);
+  const [crops, setCrops] = useState(["All"]);
   const [selectedState, setSelectedState] = useState("All");
   const [selectedYear, setSelectedYear] = useState("All");
   const [selectedCrop, setSelectedCrop] = useState("All");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(50);
-  const [totalPages, setTotalPages] = useState(1);
-  const [tableData, setTableData] = useState([]);
   const [prodPerCropData, setProdPerCropData] = useState([]);
   const [prodPerYearData, setProdPerYearData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(50);
   const [pageInput, setPageInput] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [totalPages, setTotalPages] = useState(1);
+  const [tableData, setTableData] = useState([]);
   const [sortColumn, setSortColumn] = useState(null);
   const [sortOrder, setSortOrder] = useState("asc");
-  const [years, setYears] = useState(["All"]);
-  const [crops, setCrops] = useState(["All"]);
   const [showInstruction, setShowInstruction] = useState(true);
 
   useEffect(() => {
