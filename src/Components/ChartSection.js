@@ -1,6 +1,6 @@
 
 import React from "react";
-import { ResponsiveContainer, BarChart, CartesianGrid, XAxis, YAxis, Bar } from "recharts";
+import { ResponsiveContainer, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Bar } from "recharts";
 
 function ChartSection({ data, title, onClick }) {
   return (
@@ -11,6 +11,7 @@ function ChartSection({ data, title, onClick }) {
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="label" />
           <YAxis />
+          <Tooltip />
           <Bar dataKey="value" fill="#8884d8" onClick={onClick} />
         </BarChart>
       </ResponsiveContainer>
