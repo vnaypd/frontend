@@ -142,7 +142,7 @@ function Main() {
 
   return (
     <div className="container">
-      <h1>State-wise Data</h1>
+      <h1 className="title">State-wise Data</h1>
       {showInstruction && selectedState === "All" && (
         <p style={{ color: 'red', fontSize:'large', textAlign:'left', margin:"16px"} }>Please select a state to proceed further.</p>
       )}
