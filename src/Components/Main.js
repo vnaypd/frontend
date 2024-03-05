@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import FilterSection from "./SelectSection";
+import FilterSection from "./FilterSection";
 import ChartSection from "./ChartSection";
 import TableSection from "./TableSection";
+import Pagination from "./Pagination";
+import LoadingOverlay from "./LoadingOverlay";
 import "./Main.css";
 
 function Main() {
@@ -22,20 +24,12 @@ function Main() {
   const [sortOrder, setSortOrder] = useState("asc");
   const [years, setYears] = useState(["All"]);
   const [crops, setCrops] = useState(["All"]);
+  const [showInstruction, setShowInstruction] = useState(true);
 
   useEffect(() => {
-    // Fetch initial data
     fetchData(selectedState, selectedYear, currentPage, selectedCrop);
     //eslint-disable-next-line
-  }, [
-    selectedState,
-    selectedYear,
-    currentPage,
-    pageSize,
-    sortColumn,
-    sortOrder,
-    selectedCrop,
-  ]);
+  }, [selectedState, selectedYear, currentPage, pageSize, sortColumn, sortOrder, selectedCrop]);
 
   useEffect(() => {
     axios
@@ -58,8 +52,7 @@ function Main() {
         `http://localhost:3001/api/products?state=${state}&year=${year}&crop=${crop}&page=${page}&pageSize=${pageSize}&sortColumn=${sortColumn}&sortOrder=${sortOrder}`
       )
       .then((response) => {
-        const { products, metadata, cropProduction, stateProduction } =
-          response.data;
+        const { products, metadata, cropProduction, stateProduction } = response.data;
         setTableData(products);
         setTotalPages(metadata.totalPages);
         setProdPerCropData(cropProduction);
@@ -72,7 +65,10 @@ function Main() {
       });
   };
 
-  const handleStateChange = (event) => setSelectedState(event.target.value);
+  const handleStateChange = (event) => {
+    setSelectedState(event.target.value);
+    setShowInstruction(false); // Hide the instruction once the state is selected
+  };
   const handleYearChange = (event) => setSelectedYear(event.target.value);
   const handleCropChange = (event) => setSelectedCrop(event.target.value);
   const handlePageInputChange = (event) => setPageInput(event.target.value);
@@ -103,6 +99,7 @@ function Main() {
     setPageSize(50);
     setSortColumn(null);
     setSortOrder("asc");
+    setShowInstruction(true); // Show the instruction again after reset
   };
 
   const renderProdPerCropChart = () => {
@@ -146,6 +143,9 @@ function Main() {
   return (
     <div className="container">
       <h1>State-wise Data</h1>
+      {showInstruction && selectedState === "All" && (
+        <p style={{ color: 'red' }}>Please select a state to proceed further.</p>
+      )}
       <FilterSection
         states={states}
         selectedState={selectedState}
@@ -160,9 +160,7 @@ function Main() {
       />
       <div className="data-section">
         {loading ? (
-          <div className="loading-overlay">
-            <div className="spinner"></div>
-          </div>
+          <LoadingOverlay />
         ) : selectedState !== "All" ? (
           <>
             <h2>Data for {selectedState}</h2>
@@ -170,28 +168,14 @@ function Main() {
               {renderProdPerCropChart()}
               {renderProdPerYearChart()}
             </div>
-            <div className="table-section">
-              <label htmlFor="pageSizeSelect">Select Page Size:</label>
-              <select
-                id="pageSizeSelect"
-                value={pageSize}
-                onChange={(e) => setPageSize(parseInt(e.target.value))}
-              >
-                <option value={10}>10</option>
-                <option value={20}>20</option>
-                <option value={50}>50</option>
-                <option value={100}>100</option>
-              </select>
-              <label htmlFor="pageNumber">Enter Page Number:</label>
-              <input
-                type="text"
-                id="pageNumber"
-                value={pageInput}
-                onChange={handlePageInputChange}
-              />
-              <button onClick={handlePageInputSubmit}>Go</button>
-              <span>of {totalPages} pages</span>
-            </div>
+            <Pagination
+              pageSize={pageSize}
+              totalPages={totalPages}
+              pageInput={pageInput}
+              handlePageInputChange={handlePageInputChange}
+              handlePageInputSubmit={handlePageInputSubmit}
+              setPageSize={setPageSize}
+            />
             <TableSection
               tableData={tableData}
               sortColumn={sortColumn}
