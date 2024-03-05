@@ -144,7 +144,7 @@ function Main() {
     <div className="container">
       <h1>State-wise Data</h1>
       {showInstruction && selectedState === "All" && (
-        <p style={{ color: 'red' }}>Please select a state to proceed further.</p>
+        <p style={{ color: 'red', fontSize:'large', textAlign:'left', margin:"16px"} }>Please select a state to proceed further.</p>
       )}
       <FilterSection
         states={states}
