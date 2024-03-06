@@ -29,7 +29,15 @@ function Main() {
   useEffect(() => {
     fetchData(selectedState, selectedYear, currentPage, selectedCrop);
     //eslint-disable-next-line
-  }, [selectedState, selectedYear, currentPage, pageSize, sortColumn, sortOrder, selectedCrop]);
+  }, [
+    selectedState,
+    selectedYear,
+    currentPage,
+    pageSize,
+    sortColumn,
+    sortOrder,
+    selectedCrop,
+  ]);
 
   useEffect(() => {
     axios
@@ -52,7 +60,8 @@ function Main() {
         `http://localhost:3001/api/products?state=${state}&year=${year}&crop=${crop}&page=${page}&pageSize=${pageSize}&sortColumn=${sortColumn}&sortOrder=${sortOrder}`
       )
       .then((response) => {
-        const { products, metadata, cropProduction, stateProduction } = response.data;
+        const { products, metadata, cropProduction, stateProduction } =
+          response.data;
         setTableData(products);
         setTotalPages(metadata.totalPages);
         setProdPerCropData(cropProduction);
@@ -144,7 +153,16 @@ function Main() {
     <div className="container">
       <h1 className="title">State-wise Data</h1>
       {showInstruction && selectedState === "All" && (
-        <p style={{ color: 'red', fontSize:'large', textAlign:'left', margin:"16px"} }>Please select a state to proceed further.</p>
+        <p
+          style={{
+            color: "red",
+            fontSize: "large",
+            textAlign: "left",
+            margin: "16px",
+          }}
+        >
+          Please select a state to proceed further.
+        </p>
       )}
       <FilterSection
         states={states}

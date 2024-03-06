@@ -1,13 +1,23 @@
-
 import React from "react";
-import { ResponsiveContainer, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Bar } from "recharts";
+import {
+  ResponsiveContainer,
+  BarChart,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Bar,
+} from "recharts";
 
 function ChartSection({ data, title, onClick }) {
   return (
     <div className="chart">
       <h2>{title}</h2>
       <ResponsiveContainer width="100%" height={400}>
-        <BarChart data={data} margin={{ top: 20, right: 30, left: 50, bottom: 20 }}>
+        <BarChart
+          data={data}
+          margin={{ top: 20, right: 30, left: 50, bottom: 20 }}
+        >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="label" />
           <YAxis />

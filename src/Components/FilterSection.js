@@ -15,7 +15,11 @@ function FilterSection({
   return (
     <div className="filter-section">
       <label htmlFor="stateSelect">Select a State:</label>
-      <select id="stateSelect" value={selectedState} onChange={handleStateChange}>
+      <select
+        id="stateSelect"
+        value={selectedState}
+        onChange={handleStateChange}
+      >
         {states.map((state) => (
           <option key={state} value={state}>
             {state}

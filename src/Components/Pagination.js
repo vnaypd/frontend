@@ -1,6 +1,13 @@
 import React from "react";
 
-function Pagination({ pageSize, totalPages, pageInput, handlePageInputChange, handlePageInputSubmit, setPageSize }) {
+function Pagination({
+  pageSize,
+  totalPages,
+  pageInput,
+  handlePageInputChange,
+  handlePageInputSubmit,
+  setPageSize,
+}) {
   return (
     <div className="pagination">
       <label htmlFor="pageSizeSelect">Select Page Size:</label>

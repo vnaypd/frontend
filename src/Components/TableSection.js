@@ -17,12 +17,19 @@ function TableSection({ tableData, sortColumn, sortOrder, handleHeaderClick }) {
         </tr>
         <tr>
           <th>{sortColumn === "State" && `Sorted by State (${sortOrder})`}</th>
-          <th>{sortColumn === "District" && `Sorted by District (${sortOrder})`}</th>
+          <th>
+            {sortColumn === "District" && `Sorted by District (${sortOrder})`}
+          </th>
           <th>{sortColumn === "Crop" && `Sorted by Crop (${sortOrder})`}</th>
           <th>{sortColumn === "Year" && `Sorted by Year (${sortOrder})`}</th>
-          <th>{sortColumn === "Season" && `Sorted by Season (${sortOrder})`}</th>
+          <th>
+            {sortColumn === "Season" && `Sorted by Season (${sortOrder})`}
+          </th>
           <th>{sortColumn === "Area" && `Sorted by Area (${sortOrder})`}</th>
-          <th>{sortColumn === "Production" && `Sorted by Production (${sortOrder})`}</th>
+          <th>
+            {sortColumn === "Production" &&
+              `Sorted by Production (${sortOrder})`}
+          </th>
           <th>{sortColumn === "Yield" && `Sorted by Yield (${sortOrder})`}</th>
         </tr>
       </thead>
