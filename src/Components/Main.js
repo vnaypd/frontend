@@ -25,6 +25,7 @@ function Main() {
   const [sortColumn, setSortColumn] = useState(null);
   const [sortOrder, setSortOrder] = useState("asc");
   const [showInstruction, setShowInstruction] = useState(true);
+  const [noDataFound, setNoDataFound] = useState(false);
 
   useEffect(() => {
     fetchData(selectedState, selectedYear, currentPage, selectedCrop);
@@ -62,6 +63,12 @@ function Main() {
       .then((response) => {
         const { products, metadata, cropProduction, stateProduction } =
           response.data;
+        if (products.length === 0) {
+          setNoDataFound(true);
+          setLoading(false);
+          return;
+        }
+        setNoDataFound(false);
         setTableData(products);
         setTotalPages(metadata.totalPages);
         setProdPerCropData(cropProduction);
@@ -157,8 +164,7 @@ function Main() {
           style={{
             color: "red",
             fontSize: "large",
-            textAlign: "left",
-            margin: "16px",
+            textAlign: "center",
           }}
         >
           Please select a state to proceed further.
@@ -181,25 +187,31 @@ function Main() {
           <LoadingOverlay />
         ) : selectedState !== "All" ? (
           <>
-            <h2>Data for {selectedState}</h2>
-            <div className="chart-section">
-              {renderProdPerCropChart()}
-              {renderProdPerYearChart()}
-            </div>
-            <Pagination
-              pageSize={pageSize}
-              totalPages={totalPages}
-              pageInput={pageInput}
-              handlePageInputChange={handlePageInputChange}
-              handlePageInputSubmit={handlePageInputSubmit}
-              setPageSize={setPageSize}
-            />
-            <TableSection
-              tableData={tableData}
-              sortColumn={sortColumn}
-              sortOrder={sortOrder}
-              handleHeaderClick={handleHeaderClick}
-            />
+            {noDataFound ? (
+              <p>No data found.</p>
+            ) : (
+              <>
+                <h2>Data for {selectedState}</h2>
+                <div className="chart-section">
+                  {renderProdPerCropChart()}
+                  {renderProdPerYearChart()}
+                </div>
+                <Pagination
+                  pageSize={pageSize}
+                  totalPages={totalPages}
+                  pageInput={pageInput}
+                  handlePageInputChange={handlePageInputChange}
+                  handlePageInputSubmit={handlePageInputSubmit}
+                  setPageSize={setPageSize}
+                />
+                <TableSection
+                  tableData={tableData}
+                  sortColumn={sortColumn}
+                  sortOrder={sortOrder}
+                  handleHeaderClick={handleHeaderClick}
+                />
+              </>
+            )}
           </>
         ) : null}
       </div>

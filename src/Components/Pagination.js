@@ -21,6 +21,7 @@ function Pagination({
         <option value={50}>50</option>
         <option value={100}>100</option>
       </select>
+
       <label htmlFor="pageNumber">Enter Page Number:</label>
       <input
         type="text"
@@ -28,6 +29,7 @@ function Pagination({
         value={pageInput}
         onChange={handlePageInputChange}
       />
+      
       <button onClick={handlePageInputSubmit}>Go</button>
       <span>of {totalPages} pages</span>
     </div>

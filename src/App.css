@@ -1,8 +1,14 @@
+body {
+  background-color: #f8f9fa; /* Light gray background */
+}
+
 .container {
-  max-width: 1200px;
+  max-width: 1100px;
   margin: 0 auto;
   padding: 20px;
-  font-family: "Anta", sans-serif;
+  background-color: #fff; /* White background */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Soft shadow */
 }
 
 .title {
@@ -37,7 +43,7 @@ h1 {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  margin-bottom: 10px;
+  margin: 10px;
 }
 
 .filter-section select {
@@ -79,10 +85,6 @@ h1 {
   background-color: #f9f9f9;
 }
 
-.Container {
-  cursor: crosshair;
-}
-
 .table-section {
   display: flex;
   align-items: center;
@@ -100,7 +102,7 @@ button {
   padding: 8px;
   border-radius: 5px;
   border: 1px solid #ccc;
-  margin-right: 10px;
+  margin: 10px;
 }
 
 button {
@@ -162,10 +164,15 @@ tbody tr:hover {
   height: 50px;
 }
 
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
 @keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 @media screen and (max-width: 768px) {
@@ -191,4 +198,11 @@ tbody tr:hover {
   to {
     visibility: hidden;
   }
+}
+.loading-overlay {
+  animation: fadeInOut 1.5s ease infinite; /* Fading animation */
+}
+
+.loading-spinner {
+  animation: spin 1s linear infinite; /* Spinning animation */
 }
