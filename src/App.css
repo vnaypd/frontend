@@ -21,6 +21,7 @@ body {
     "SHLN" 50;
 }
 
+
 h1 {
   text-align: center;
 }
@@ -34,6 +35,7 @@ h1 {
 }
 
 .filter-section label {
+  font-size: large;
   font-weight: bold;
 }
 
@@ -41,6 +43,8 @@ h1 {
 .filter-section input[type="text"],
 .filter-section button {
   padding: 8px;
+  font-weight: bold;
+  font-size: medium;
   border: 1px solid #ccc;
   border-radius: 4px;
   margin: 10px;
@@ -90,6 +94,11 @@ h1 {
   align-items: center;
   justify-content: space-between;
   margin-top: 20px;
+}
+
+.pagination{
+  font-size: large;
+  font-weight: bold;
 }
 
 label {

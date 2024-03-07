@@ -9,10 +9,40 @@ import "../App.css";
 
 function Main() {
   const [loading, setLoading] = useState(true);
-  const [states, setStates] = useState([]);
-  const [years, setYears] = useState(["All"]);
-  const [crops, setCrops] = useState(["All"]);
-  const [selectedState, setSelectedState] = useState("All");
+  // eslint-disable-next-line 
+  const [states, setStates] = useState([
+    " ",
+    "Delhi",
+    "Andhra Pradesh",
+    "Arunachal Pradesh",
+    "Assam",
+    "Bihar",
+    "Chhattisgarh",
+    "Goa",
+    "Gujarat",
+    "Haryana",
+    "Himachal Pradesh",
+    "Jharkhand",
+    "Karnataka",
+    "Kerala",
+    "Madhya Pradesh",
+    "Maharashtra",
+    "Manipur",
+    "Meghalaya",
+    "Mizoram",
+    "Nagaland",
+    "Odisha",
+    "Punjab",
+    "Rajasthan",
+    "Sikkim",
+    "Tamil Nadu",
+    "Telangana",
+    "Tripura",
+    "Uttar Pradesh",
+    "Uttarakhand",
+    "West Bengal",
+  ]);
+  const [selectedState, setSelectedState] = useState(" ");
   const [selectedYear, setSelectedYear] = useState("All");
   const [selectedCrop, setSelectedCrop] = useState("All");
   const [prodPerCropData, setProdPerCropData] = useState([]);
@@ -28,7 +58,9 @@ function Main() {
   const [noDataFound, setNoDataFound] = useState(false);
 
   useEffect(() => {
-    fetchData(selectedState, selectedYear, currentPage, selectedCrop);
+    if (selectedState) {
+      fetchData(selectedState, selectedYear, currentPage, selectedCrop);
+    }
     //eslint-disable-next-line
   }, [
     selectedState,
@@ -39,20 +71,6 @@ function Main() {
     sortOrder,
     selectedCrop,
   ]);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:3001/api/products")
-      .then((response) => {
-        const { allStates, allYears, stateCrops } = response.data;
-        setStates(["All", ...allStates]);
-        setYears(["All", ...allYears]);
-        setCrops(["All", ...stateCrops]);
-      })
-      .catch((error) => {
-        console.error("Error fetching states:", error);
-      });
-  }, []);
 
   const fetchData = (state, year, page, crop) => {
     setLoading(true);
@@ -83,10 +101,8 @@ function Main() {
 
   const handleStateChange = (event) => {
     setSelectedState(event.target.value);
-    setShowInstruction(false); // Hide the instruction once the state is selected
+    setShowInstruction(false);
   };
-  const handleYearChange = (event) => setSelectedYear(event.target.value);
-  const handleCropChange = (event) => setSelectedCrop(event.target.value);
   const handlePageInputChange = (event) => setPageInput(event.target.value);
 
   const handlePageInputSubmit = () => {
@@ -108,14 +124,12 @@ function Main() {
   };
 
   const handleReset = () => {
-    setSelectedState("All");
-    setSelectedYear("All");
-    setSelectedCrop("All");
+    setSelectedState(" ");
     setCurrentPage(1);
     setPageSize(50);
     setSortColumn(null);
     setSortOrder("asc");
-    setShowInstruction(true); // Show the instruction again after reset
+    setShowInstruction(true);
   };
 
   const renderProdPerCropChart = () => {
@@ -158,8 +172,8 @@ function Main() {
 
   return (
     <div className="container">
-      <h1 className="title">State-wise Data</h1>
-      {showInstruction && selectedState === "All" && (
+      <h1 className="title">State-wise Data {selectedState}</h1>
+      {showInstruction && selectedState===' ' && (
         <p
           style={{
             color: "red",
@@ -174,24 +188,17 @@ function Main() {
         states={states}
         selectedState={selectedState}
         handleStateChange={handleStateChange}
-        years={years}
-        selectedYear={selectedYear}
-        handleYearChange={handleYearChange}
-        crops={crops}
-        selectedCrop={selectedCrop}
-        handleCropChange={handleCropChange}
         handleReset={handleReset}
       />
       <div className="data-section">
         {loading ? (
           <LoadingOverlay />
-        ) : selectedState !== "All" ? (
+        ) : selectedState && (
           <>
-            {noDataFound ? (
-              <p>No data found.</p>
+            {noDataFound  ? (
+              <p> </p>
             ) : (
               <>
-                <h2>Data for {selectedState}</h2>
                 <div className="chart-section">
                   {renderProdPerCropChart()}
                   {renderProdPerYearChart()}
@@ -213,7 +220,7 @@ function Main() {
               </>
             )}
           </>
-        ) : null}
+        )}
       </div>
     </div>
   );

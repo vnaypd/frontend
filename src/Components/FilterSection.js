@@ -4,12 +4,6 @@ function FilterSection({
   states,
   selectedState,
   handleStateChange,
-  years,
-  selectedYear,
-  handleYearChange,
-  crops,
-  selectedCrop,
-  handleCropChange,
   handleReset,
 }) {
   return (
@@ -27,7 +21,7 @@ function FilterSection({
         ))}
       </select>
 
-      <label htmlFor="yearSelect">Select a Year:</label>
+      {/* <label htmlFor="yearSelect">Select a Year:</label>
       <select id="yearSelect" value={selectedYear} onChange={handleYearChange}>
         {years.map((year) => (
           <option key={year} value={year}>
@@ -43,7 +37,7 @@ function FilterSection({
             {crop}
           </option>
         ))}
-      </select>
+      </select> */}
 
       <button onClick={handleReset}>Reset</button>
     </div>
