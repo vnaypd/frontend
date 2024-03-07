@@ -8,10 +8,10 @@ import LoadingOverlay from "./LoadingOverlay";
 import "../App.css";
 
 function Main() {
-  const [loading, setLoading] = useState(true);
-  // eslint-disable-next-line 
+  const [loading, setLoading] = useState(false);
+  // eslint-disable-next-line
   const [states, setStates] = useState([
-    " ",
+    "Select State",
     "Delhi",
     "Andhra Pradesh",
     "Arunachal Pradesh",
@@ -42,7 +42,7 @@ function Main() {
     "Uttarakhand",
     "West Bengal",
   ]);
-  const [selectedState, setSelectedState] = useState(" ");
+  const [selectedState, setSelectedState] = useState("Select State");
   const [selectedYear, setSelectedYear] = useState("All");
   const [selectedCrop, setSelectedCrop] = useState("All");
   const [prodPerCropData, setProdPerCropData] = useState([]);
@@ -58,7 +58,7 @@ function Main() {
   const [noDataFound, setNoDataFound] = useState(false);
 
   useEffect(() => {
-    if (selectedState) {
+    if (selectedState !== "Select State") {
       fetchData(selectedState, selectedYear, currentPage, selectedCrop);
     }
     //eslint-disable-next-line
@@ -173,7 +173,7 @@ function Main() {
   return (
     <div className="container">
       <h1 className="title">State-wise Data {selectedState}</h1>
-      {showInstruction && selectedState===' ' && (
+      {showInstruction && selectedState === " " && (
         <p
           style={{
             color: "red",
@@ -190,38 +190,40 @@ function Main() {
         handleStateChange={handleStateChange}
         handleReset={handleReset}
       />
-      <div className="data-section">
-        {loading ? (
-          <LoadingOverlay />
-        ) : selectedState && (
-          <>
-            {noDataFound  ? (
-              <p> </p>
-            ) : (
-              <>
-                <div className="chart-section">
-                  {renderProdPerCropChart()}
-                  {renderProdPerYearChart()}
-                </div>
-                <Pagination
-                  pageSize={pageSize}
-                  totalPages={totalPages}
-                  pageInput={pageInput}
-                  handlePageInputChange={handlePageInputChange}
-                  handlePageInputSubmit={handlePageInputSubmit}
-                  setPageSize={setPageSize}
-                />
-                <TableSection
-                  tableData={tableData}
-                  sortColumn={sortColumn}
-                  sortOrder={sortOrder}
-                  handleHeaderClick={handleHeaderClick}
-                />
-              </>
-            )}
-          </>
-        )}
-      </div>
+      {selectedState !== "Select State" && (
+        <div className="data-section">
+          {loading ? (
+            <LoadingOverlay />
+          ) : (
+            <>
+              {noDataFound ? (
+                <p>No data found.</p>
+              ) : (
+                <>
+                  <div className="chart-section">
+                    {renderProdPerCropChart()}
+                    {renderProdPerYearChart()}
+                  </div>
+                  <Pagination
+                    pageSize={pageSize}
+                    totalPages={totalPages}
+                    pageInput={pageInput}
+                    handlePageInputChange={handlePageInputChange}
+                    handlePageInputSubmit={handlePageInputSubmit}
+                    setPageSize={setPageSize}
+                  />
+                  <TableSection
+                    tableData={tableData}
+                    sortColumn={sortColumn}
+                    sortOrder={sortOrder}
+                    handleHeaderClick={handleHeaderClick}
+                  />
+                </>
+              )}
+            </>
+          )}
+        </div>
+      )}
     </div>
   );
 }
