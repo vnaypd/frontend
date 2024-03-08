@@ -173,7 +173,7 @@ function Main() {
   return (
     <div className="container">
       <h1 className="title">State-wise Data {selectedState}</h1>
-      {showInstruction && selectedState === " " && (
+      {showInstruction && selectedState === "Select State" && (
         <p
           style={{
             color: "red",
