@@ -5,43 +5,11 @@ import ChartSection from "./ChartSection";
 import TableSection from "./TableSection";
 import Pagination from "./Pagination";
 import LoadingOverlay from "./LoadingOverlay";
+import config from "../Config";
 import "../App.css";
 
 function Main() {
   const [loading, setLoading] = useState(false);
-  // eslint-disable-next-line
-  const [states, setStates] = useState([
-    "Select State",
-    "Delhi",
-    "Andhra Pradesh",
-    "Arunachal Pradesh",
-    "Assam",
-    "Bihar",
-    "Chhattisgarh",
-    "Goa",
-    "Gujarat",
-    "Haryana",
-    "Himachal Pradesh",
-    "Jharkhand",
-    "Karnataka",
-    "Kerala",
-    "Madhya Pradesh",
-    "Maharashtra",
-    "Manipur",
-    "Meghalaya",
-    "Mizoram",
-    "Nagaland",
-    "Odisha",
-    "Punjab",
-    "Rajasthan",
-    "Sikkim",
-    "Tamil Nadu",
-    "Telangana",
-    "Tripura",
-    "Uttar Pradesh",
-    "Uttarakhand",
-    "West Bengal",
-  ]);
   const [selectedState, setSelectedState] = useState("Select State");
   const [selectedYear, setSelectedYear] = useState("All");
   const [selectedCrop, setSelectedCrop] = useState("All");
@@ -74,7 +42,7 @@ function Main() {
 
   const fetchData = (state, year, page, crop) => {
     setLoading(true);
-    let apiUrl = `http://localhost:3001/api/products?`;
+    let apiUrl = `${config.apiUrl}?`;
     setCurrentPage(1);
     setPageSize(50);
     setSortColumn(null);
@@ -204,7 +172,7 @@ function Main() {
         </p>
       )}
       <FilterSection
-        states={states}
+        states={config.states}
         selectedState={selectedState}
         handleStateChange={handleStateChange}
         handleReset={handleReset}
