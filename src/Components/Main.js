@@ -5,11 +5,42 @@ import ChartSection from "./ChartSection";
 import TableSection from "./TableSection";
 import Pagination from "./Pagination";
 import LoadingOverlay from "./LoadingOverlay";
-import config from "../Config";
 import "../App.css";
-
 function Main() {
   const [loading, setLoading] = useState(false);
+  // eslint-disable-next-line
+  const [states, setStates] = useState([
+    "Select State",
+    "Delhi",
+    "Andhra Pradesh",
+    "Arunachal Pradesh",
+    "Assam",
+    "Bihar",
+    "Chhattisgarh",
+    "Goa",
+    "Gujarat",
+    "Haryana",
+    "Himachal Pradesh",
+    "Jharkhand",
+    "Karnataka",
+    "Kerala",
+    "Madhya Pradesh",
+    "Maharashtra",
+    "Manipur",
+    "Meghalaya",
+    "Mizoram",
+    "Nagaland",
+    "Odisha",
+    "Punjab",
+    "Rajasthan",
+    "Sikkim",
+    "Tamil Nadu",
+    "Telangana",
+    "Tripura",
+    "Uttar Pradesh",
+    "Uttarakhand",
+    "West Bengal",
+  ]);
   const [selectedState, setSelectedState] = useState("Select State");
   const [selectedYear, setSelectedYear] = useState("All");
   const [selectedCrop, setSelectedCrop] = useState("All");
@@ -24,7 +55,6 @@ function Main() {
   const [sortOrder, setSortOrder] = useState("asc");
   const [showInstruction, setShowInstruction] = useState(true);
   const [noDataFound, setNoDataFound] = useState(false);
-
   useEffect(() => {
     if (selectedState !== "Select State") {
       fetchData(selectedState, selectedYear, currentPage, selectedCrop);
@@ -39,32 +69,12 @@ function Main() {
     sortOrder,
     selectedCrop,
   ]);
-
   const fetchData = (state, year, page, crop) => {
     setLoading(true);
-    let apiUrl = `${config.apiUrl}?`;
-    setCurrentPage(1);
-    setPageSize(50);
-    setSortColumn(null);
-    setSortOrder("asc");
-    const params = {
-      state: state !== "Select State" ? state : null,
-      year: year !== "All" ? year : null,
-      crop: crop !== "All" ? crop : null,
-      page: page !== "1" ? page : null,
-      pageSize: pageSize !== "50" ? pageSize : null,
-      sortColumn: sortColumn !== null ? sortColumn : null,
-      sortOrder: sortOrder !== "asc" ? sortOrder : null,
-    };
-
-    Object.entries(params).forEach(([key, value]) => {
-      if (value !== null) {
-        apiUrl += `&${key}=${value}`;
-      }
-    });
-
     axios
-      .get(apiUrl)
+      .get(
+        `http://localhost:3001/api/products?state=${state}&year=${year}&crop=${crop}&page=${page}&pageSize=${pageSize}&sortColumn=${sortColumn}&sortOrder=${sortOrder}`
+      )
       .then((response) => {
         const { products, metadata, cropProduction, stateProduction } =
           response.data;
@@ -85,13 +95,11 @@ function Main() {
         setLoading(false);
       });
   };
-
   const handleStateChange = (event) => {
     setSelectedState(event.target.value);
     setShowInstruction(false);
   };
   const handlePageInputChange = (event) => setPageInput(event.target.value);
-
   const handlePageInputSubmit = () => {
     const pageNumber = parseInt(pageInput);
     if (!isNaN(pageNumber) && pageNumber > 0 && pageNumber <= totalPages) {
@@ -100,7 +108,6 @@ function Main() {
       alert("Please enter a valid page number.");
     }
   };
-
   const handleHeaderClick = (column) => {
     if (sortColumn === column) {
       setSortOrder(sortOrder === "asc" ? "desc" : "asc");
@@ -109,7 +116,6 @@ function Main() {
       setSortOrder("asc");
     }
   };
-
   const handleReset = () => {
     setSelectedState(" ");
     setCurrentPage(1);
@@ -118,17 +124,14 @@ function Main() {
     setSortOrder("asc");
     setShowInstruction(true);
   };
-
   const renderProdPerCropChart = () => {
     const data = Object.entries(prodPerCropData).map(([crop, production]) => ({
       label: crop,
       value: production,
     }));
-
     const ProdPerCropChart = (data) => {
       setSelectedCrop(data.label);
     };
-
     return (
       <ChartSection
         data={data}
@@ -137,17 +140,14 @@ function Main() {
       />
     );
   };
-
   const renderProdPerYearChart = () => {
     const data = Object.entries(prodPerYearData).map(([year, production]) => ({
       label: year,
       value: production,
     }));
-
     const ProdPerYearChart = (data) => {
       setSelectedYear(data.label);
     };
-
     return (
       <ChartSection
         data={data}
@@ -156,7 +156,6 @@ function Main() {
       />
     );
   };
-
   return (
     <div className="container">
       <h1 className="title">State-wise Data {selectedState}</h1>
@@ -172,7 +171,7 @@ function Main() {
         </p>
       )}
       <FilterSection
-        states={config.states}
+        states={states}
         selectedState={selectedState}
         handleStateChange={handleStateChange}
         handleReset={handleReset}
@@ -214,5 +213,4 @@ function Main() {
     </div>
   );
 }
-
 export default Main;
