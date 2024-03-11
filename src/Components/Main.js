@@ -79,33 +79,22 @@ function Main() {
     setPageSize(50);
     setSortColumn(null);
     setSortOrder("asc");
-    if (state && state !== "Select State") {
-      apiUrl += `&state=${state}`;
-    }
+    const params = {
+      state: state !== "Select State" ? state : null,
+      year: year !== "All" ? year : null,
+      crop: crop !== "All" ? crop : null,
+      page: page !== "1" ? page : null,
+      pageSize: pageSize !== "50" ? pageSize : null,
+      sortColumn: sortColumn !== null ? sortColumn : null,
+      sortOrder: sortOrder !== "asc" ? sortOrder : null,
+    };
 
-    if (year && year !== "All") {
-      apiUrl += `&year=${year}`;
-    }
+    Object.entries(params).forEach(([key, value]) => {
+      if (value !== null) {
+        apiUrl += `&${key}=${value}`;
+      }
+    });
 
-    if (crop && crop !== "All") {
-      apiUrl += `&crop=${crop}`;
-    }
-
-    if (page && page !== "1") {
-      apiUrl += `&page=${page}`;
-    }
-
-    if (pageSize && pageSize !== "50") {
-      apiUrl += `&pageSize=${pageSize}`;
-    }
-
-    if (sortColumn && sortColumn !== null) {
-      apiUrl += `&sortColumn=${sortColumn}`;
-    }
-
-    if (sortOrder && sortOrder !== "asc") {
-      apiUrl += `&sortOrder=${sortOrder}`;
-    }
     axios
       .get(apiUrl)
       .then((response) => {
