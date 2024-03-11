@@ -74,10 +74,40 @@ function Main() {
 
   const fetchData = (state, year, page, crop) => {
     setLoading(true);
+    let apiUrl = `http://localhost:3001/api/products?`;
+    setCurrentPage(1);
+    setPageSize(50);
+    setSortColumn(null);
+    setSortOrder("asc");
+    if (state && state !== "Select State") {
+      apiUrl += `&state=${state}`;
+    }
+
+    if (year && year !== "All") {
+      apiUrl += `&year=${year}`;
+    }
+
+    if (crop && crop !== "All") {
+      apiUrl += `&crop=${crop}`;
+    }
+
+    if (page && page !== "1") {
+      apiUrl += `&page=${page}`;
+    }
+
+    if (pageSize && pageSize !== "50") {
+      apiUrl += `&pageSize=${pageSize}`;
+    }
+
+    if (sortColumn && sortColumn !== null) {
+      apiUrl += `&sortColumn=${sortColumn}`;
+    }
+
+    if (sortOrder && sortOrder !== "asc") {
+      apiUrl += `&sortOrder=${sortOrder}`;
+    }
     axios
-      .get(
-        `http://localhost:3001/api/products?state=${state}&year=${year}&crop=${crop}&page=${page}&pageSize=${pageSize}&sortColumn=${sortColumn}&sortOrder=${sortOrder}`
-      )
+      .get(apiUrl)
       .then((response) => {
         const { products, metadata, cropProduction, stateProduction } =
           response.data;
