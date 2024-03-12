@@ -27,7 +27,15 @@ function Main() {
 
   useEffect(() => {
     if (selectedState !== "Select State") {
-      fetchData(selectedState, selectedYear, currentPage, selectedCrop);
+      fetchData(
+        selectedState,
+        selectedYear,
+        currentPage,
+        pageSize,
+        sortColumn,
+        sortOrder,
+        selectedCrop
+      );
     }
     //eslint-disable-next-line
   }, [
@@ -40,9 +48,17 @@ function Main() {
     selectedCrop,
   ]);
 
-  const fetchData = (state, year, page, crop) => {
+  const fetchData = (
+    state,
+    year,
+    page,
+    pageSize,
+    sortColumn,
+    sortOrder,
+    crop
+  ) => {
     setLoading(true);
-    let apiUrl = `${config.apiUrl}?page=${page}&pageSize=${pageSize}&sortColumn=${sortColumn}&sortOrder=${sortOrder}`;
+    let apiUrl = `${config.apiUrl}?`;
     if (state !== "Select State") {
       apiUrl += `&state=${state}`;
     }
@@ -51,6 +67,22 @@ function Main() {
     }
     if (crop !== "All") {
       apiUrl += `&crop=${crop}`;
+    }
+
+    if (page !== "All") {
+      apiUrl += `&page=${page}`;
+    }
+
+    if (pageSize !== "All") {
+      apiUrl += `&pageSize=${pageSize}`;
+    }
+
+    if (sortColumn !== "All") {
+      apiUrl += `&sortColumn=${sortColumn}`;
+    }
+
+    if (sortOrder !== "All") {
+      apiUrl += `&sortOrder=${sortOrder}`;
     }
 
     axios
