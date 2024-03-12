@@ -1,14 +1,15 @@
 body {
-  background-color: #f8f9fa; /* Light gray background */
+  background-color: #f8f9fa;
+  backface-visibility: hidden;
 }
 
 .container {
   max-width: 1100px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #fff; /* White background */
+  background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .title {
@@ -96,7 +97,7 @@ h1 {
   margin-top: 20px;
 }
 
-.pagination{
+.pagination {
   font-size: large;
   font-weight: bold;
 }
@@ -130,6 +131,7 @@ table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
+  border: 3px solid black;
 }
 
 thead {
@@ -142,6 +144,8 @@ th,
 td {
   padding: 10px;
   text-align: left;
+  border: 2px solid black;
+  padding: 8px;
 }
 
 tbody tr:nth-child(even) {
@@ -150,6 +154,9 @@ tbody tr:nth-child(even) {
 
 tbody tr:hover {
   background-color: #ddd;
+  font-size: larger;
+  font-weight: 600;
+  background-color: beige;
 }
 
 .loading-overlay {
@@ -174,14 +181,27 @@ tbody tr:hover {
 }
 
 @keyframes fadeInOut {
-  0% { opacity: 0; }
-  50% { opacity: 1; }
-  100% { opacity: 0; }
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -208,10 +228,13 @@ tbody tr:hover {
     visibility: hidden;
   }
 }
+
 .loading-overlay {
-  animation: fadeInOut 1.5s ease infinite; /* Fading animation */
+  animation: fadeInOut 1.5s ease infinite;
+  /* Fading animation */
 }
 
 .loading-spinner {
-  animation: spin 1s linear infinite; /* Spinning animation */
+  animation: spin 1s linear infinite;
+  /* Spinning animation */
 }
