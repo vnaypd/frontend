@@ -13,13 +13,11 @@ body {
 }
 
 .title {
-  font-family: "Honk", system-ui;
+  font-family: "Patua One", system-ui;
+  color: #4692e3;
   font-optical-sizing: auto;
   font-weight: 600;
   font-style: normal;
-  font-variation-settings:
-    "MORF" 15,
-    "SHLN" 50;
 }
 
 
@@ -55,6 +53,7 @@ h1 {
   min-width: 150px;
 }
 
+
 .filter-section button {
   background-color: #007bff;
   color: #fff;
@@ -78,7 +77,6 @@ h1 {
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
-
 }
 
 .chart {
