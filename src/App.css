@@ -151,10 +151,8 @@ tbody tr:nth-child(even) {
 }
 
 tbody tr:hover {
-  background-color: #ddd;
-  font-size: larger;
-  font-weight: 600;
   background-color: beige;
+  cursor: no-drop;
 }
 
 .loading-overlay {
@@ -235,4 +233,10 @@ tbody tr:hover {
 .loading-spinner {
   animation: spin 1s linear infinite;
   /* Spinning animation */
+}
+
+.popup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

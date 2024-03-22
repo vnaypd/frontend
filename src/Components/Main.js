@@ -180,6 +180,18 @@ function Main() {
     );
   };
 
+  const handleInsert = (crop_sort_id) => {
+    console.log("Insert at crop_sort_id:", crop_sort_id);
+  };
+
+  const handleModify = (crop_sort_id) => {
+    console.log("Modify at crop_sort_id:", crop_sort_id);
+  };
+
+  const handleRemove = (crop_sort_id) => {
+    console.log("Remove at crop_sort_id:", crop_sort_id);
+  };
+
   return (
     <div className="container">
       <h1 className="title">State-wise Data : {selectedState}</h1>
@@ -227,6 +239,9 @@ function Main() {
                     sortColumn={sortColumn}
                     sortOrder={sortOrder}
                     handleHeaderClick={handleHeaderClick}
+                    handleInsert={handleInsert}
+                    handleModify={handleModify}
+                    handleRemove={handleRemove}
                   />
                 </>
               )}
